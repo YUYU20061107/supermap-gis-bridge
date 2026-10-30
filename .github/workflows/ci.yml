@@ -1,0 +1,38 @@
+# 离线协议自检（offline protocol self-check）— 单包版
+#
+# 本 CI 在没有任何 SuperMap 软件的 runner 上运行，只验证：
+#   - 全部 Python 文件可编译；
+#   - live/selftest.py 协议自检通过（initialize / 工具清单 / confirm
+#     闸门 / 错误 token 拒绝等协议层行为）；
+#   - 仓库不含本机路径 / 用户名 / 邮箱等敏感模式（脱敏扫描）。
+# 它【不】验证本包已在真实 SuperMap 上完成实机校准——校准状态以
+# docs/CALIBRATION.md 与 docs/CALIBRATION-RESULTS-20261024.md 为准
+# （文件回退模式已在 iDesktop 10i 校准，iDesktopX 实时模式待验证），
+# 不要把 CI 绿灯理解为实机可用。工具清单机读化与安全不变量自检在
+# 合集仓 gis-agent-bridges 的 manifest/ 中统一维护。
+name: offline-protocol-selfcheck
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  selfcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Byte-compile the whole tree
+        run: python -m compileall -q .
+      - name: Protocol selftest (offline, no SuperMap software)
+        run: python live/selftest.py
+      - name: Desensitization scan (no local paths, usernames, mailboxes)
+        run: |
+          if grep -RInE --exclude-dir=.github --exclude-dir=.git 'C:\\Users\\|/home/[a-z]|RAHUYU|yyu512008|@gmail\.com|@qq\.com' \
+              --include='*.py' --include='*.md' --include='*.json' --include='*.yml' .; then
+            echo "sensitive pattern hit" >&2
+            exit 1
+          fi
+          echo "scan clean"
