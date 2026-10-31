@@ -13,6 +13,12 @@
 （工作空间 *.smwu / *.sxwu、数据源 *.udbx）的受控桥接工具，而不是让 Agent 直接
 读写二进制工程文件。所有动作都是有限、受控、带安全闸的；动作之外不许 Agent 自行发挥。
 
+## 操作手册（付费配套）
+
+桥本身免费开源。想让 Agent 开箱就把桥跑对——校准顺序、`set_map` 写回规则、标签专题图落盘路径、实测错误表，以及「不许把没验证的说成已完成」的汇报纪律——这套在真机上磨出来的操作手册单独在 Agensi 出售：[SuperMap Bridge Operator — safety-gated GIS agent control](https://www.agensi.io/skills/supermap-bridge-operator-safety-gated-gis-agent-control)（29 美元，一次性买断）。
+
+> **Operator skill (paid companion)** — The calibrated operating manual for this bridge (calibration order, write-back rules, error table, reporting discipline) is available on Agensi: [SuperMap Bridge Operator](https://www.agensi.io/skills/supermap-bridge-operator-safety-gated-gis-agent-control) (US$29, one-time). The bridge code itself stays free and open source.
+
 ## 项目由来
 
 这两年，CAD、Blender 等工科软件陆续出现了让 AI Agent 直接接入、操作当前工程的服务，Agent 不再只能隔着文件格式猜内容。GIS 与遥感这边还基本是空白——看到别的工科行业一直在涌现这种服务，就想为我们 GIS/遥感也加一个，于是有了这个桥：让 Agent 以受控、可审计的方式操作 SuperMap 工程，而不是直接读写二进制文件。
