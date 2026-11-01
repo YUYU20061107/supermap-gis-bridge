@@ -1,5 +1,7 @@
 # supermap-gis-bridge
 
+[![AgentShield Security](https://merx.help/badge/A+.svg)](https://merx.help/shield)
+
 > **English** — supermap-gis-bridge lets an AI agent operate SuperMap GIS projects
 > through SuperMap's official Python component (iobjectspy), in two modes: a
 > *headless bridge* that inventories / backs up workspace files by running scripts
